@@ -1,0 +1,135 @@
+﻿@model WebMVCTesting.Models.AllOrder.TestingTempOrder
+@{
+    ViewBag.Title = "DetailProduct";
+    var dt = ViewData["ProDetail"] as WebMVCTesting.Models.TestingProduct;
+}
+@functions{
+    public Boolean CheckExist(int? id)
+    {
+        WebMVCTesting.Models.AllOrder.WebDBEntities db = new WebMVCTesting.Models.AllOrder.WebDBEntities();
+        var check = db.TestingTempOrders.Where(d => d.cusID.Equals(id));
+        if (check != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+}
+
+<h3 style="margin-top:15px;">@Html.ActionLink("List of Products", "Product", "Home") <i class="fa-solid fa-chevron-right"></i> <strong>@dt.proName</strong></h3>
+@using (Html.BeginForm("Add2Order", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="info_detail" style="display: grid; grid-template-columns: 50% 50%; font-family: 'Roboto', sans-serif;">
+        <div>
+            <div style=" background-color: whitesmoke; padding:10px;margin:15px;">
+                <img src="@dt.proImg"
+                     alt="" style="height:350px; margin-left:auto; margin-right:auto; display:flex;">
+
+            </div>
+            <div style="display: grid; grid-template-columns: auto auto auto auto; margin-top:20px;">
+                @for (int i = 0; i < 4; i++)
+                {
+                    <img src="@dt.proImg"
+                         alt="" style="width: 100px; height: 150px; background-color: whitesmoke; padding: 20px;margin-left:auto; margin-right:auto; display:flex;">
+
+                }
+            </div>
+
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div>
+            <h3 style="font-size:26px;"><strong>@dt.proName</strong></h3>
+            <div>
+                <strong>Star Rating:</strong>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+            </div>
+            <h4>Price: <strong style="color:#f85d30">$@dt.priceDeli</strong></h4>
+            <div style="display:inline;">
+                <h5 style="display:inline;"><i class="fas fa-tags"></i> <strong>Brand: </strong></h5>@Html.ActionLink("HealthyCare+", "About", "Home", new { style = "display:inline;" })
+
+            </div>
+            <br />
+            <div style="width:500px;">
+                <h4><i class="fa fa-info-circle"></i> <strong>Product information - Description</strong></h4>
+                <p>
+                    @dt.proDesc
+                </p>
+
+            </div>
+            @Html.EditorFor(model => model.cusID, new { htmlAttributes = new { @Value = Session["ID"], @class = "form-control hide" } })
+            @Html.ValidationMessageFor(model => model.cusID, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.proID, new { htmlAttributes = new { @Value = dt.proID, @class = "form-control hide" } })
+            @Html.ValidationMessageFor(model => model.proID, "", new { @class = "text-danger" })
+            <h4><strong>Quantity:</strong></h4>
+            @*<input type="number" id="quantity" name="quantity" min="1" max="5">*@
+            @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control", @style = "min-width:100px; max-width:140px;", @min = "1" } })
+            @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+            <br />
+            <h4><i class="fab fa-ideal"></i> <strong>Great Deals on Purchases</strong></h4>
+            <br />
+            <div style="display:flex; ">
+                <div style="width: 120px; text-align: center; ">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABmJLR0QA/wD/AP+gvaeTAAADTklEQVRYhe2XTWxUVRTHf+e+hwRjJKEJLohAZFPb+QgawqQzbQRjDC5YdgELdQHRhSsC08foks7gXpd+JS4sC4huNCR+pOMgC6IOMzSjibEklWgDoYRAhPYeF4VAyX0zd14/1GT+y3v+55zfey/v3nOhp57+XYmPaWJiIvg9tfWZ+Xk7aIRtqmxDdCuwBeRJRB9H2Qg8cS/lJsIcKrdAbwAzqFwWYdoq02Fomtsbl38bHR1dSAxYaUxmrcqbIM8LDAIbfB6mC91SuAR6QQnfL6VzdW/ASmMyq2rOrQJUnG5bgpwL0rjc1soh1g4OYIMRe8gVcAKKkc2ry+OSPuVadQL+l9QDXK7WErBlrPYbq/3ArG/SWgG2zDrdW8wWWsVsoaXwk2/iWgAuwvUX/gAYb1b3C+z1TQ5XjwsQfjHhA7hKvbpPrUwAgW8J9xtU/l4huD1L4EROA+vdPfW2N6CqzsU2VjkvyrsC19vgtR6GG29W96vImVg4ADE3vAEx5mpcnfUBr4xl8kXEvgC4fC0bLCyBEyungMdi4QBUnT3dR53aS3F17mAHAMZSwz+L2BcfgWzZYGFPaWDkSldwACpNb0Bj47cBtXKm3KztdEAmhwOC0Dh7OsctVZVKozYNPB1T7ypGXooGh34EOHHxhwzBndmkcMB0lM5vdwXcn1hEVfXzNgX7sHr2/psspXP1ZcChENsrdqNWDT7oULdPrH5dbny/6/5CpV7dJ4v7nDccQIB+EhdreycpX6xWQfLtPArXRDmisEmEcrdwCJNRKj8SF+5wkujbIN+0r88mhA+9bl+uDlbeaRdvexZH6eFvQU8n7N1ZwqnjmaHv2lk6DguhlTeAP1cM6oFmrQZvdTJ1BDyazf+FkdeAuyuCtai7Bj1YSuc6PrjXuBUNDn2J6uuALhsNFOVwMV0462P2ngejTOFTlCg516IUORZl8h/5+rv++cr12mFE36P7WXIBpRRl8ie7SUq0O1QatZdV9TNgo2fKTRF7YCw1/EW3vRKN/GOpoa+M1d3AOQ97LQiC55LAwTLuJMVsobVjamZYkaOAa8CdU+XIjqmZkWMDuV+T9kl6ACzR+NT5Ppmfj4BX7y19rGFYPv7s7tjBt6ee/i/6Bwk9Q2q6ez/DAAAAAElFTkSuQmCC" style="margin-left:auto; margin-right:auto; display:flex;">
+                    <h5 style="font-weight: 700; font-size: 12px;">
+                        Refund
+                        111%
+                        If The Goods Are Fake
+                    </h5>
+                </div>
+                <div style="width: 120px; text-align: center;  ">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABmJLR0QA/wD/AP+gvaeTAAACZklEQVRYhe2Xz0sUYRzGn2d2NfsBGQaBIRXUoda9ZGWt1qEgpAgKgqAIrH/AgwRql7noXMJTlw5CbFH/QNIl2A67S7SC5CpB1CEiCqSSoGRjd58OJpn7vpM6g+5hntt8n3ee9zPvzPtjgEiRIvmKYQeOvMqehMO9ilWe3T506lPQvFABvWL+JqCxP5c/BV4ZSqaeBMl0QuD6K+LykqsthNLuTGZbkMhwAYXNyyo7NlUaeoNEhgsIfTF0cSRIYqiABGu/aWJPkMzQAF3JEdRZYxDzQXJDA2yazl8FsHt5ndLnILmhALqTmWYBntEUZoNkh7IOesXcHQD9FrsAYnJ5UUKJwsdqvJL2W9B9AUeKuesUekFuBwBScxDuDyS7Hi62GS6+2OWg/A7g1pU9To0+lJpi7e6B499NpvUVezP5HgJpEKcBdQDqkHBGwAOvmDsLAPcmJhrI8mgAOABoayyVL9nMuPW2qnp8Qs95U7nWrygNU2wNAAcAoLjP5tknCWt2hX89BydABIZbiMMFN5MxDlbIO8naJOBwY0vjUZNXF4AAAGK/qVw3gI7w3lS3T5J1lICXpWQqa/LqYgQdadwlq0ZvvWFMEtli8+oCEKrdChe18d8g8abkND+y2Rs9gt9AnncTiV+2BhsMqOeDidRbvxZrBqRkPH2sQhU6GP1fIzugfI7qwvxAsvsWiGMg7wKrPjVPC7w4kOg2rn1LZZ0kJJ9K6jN5DjQOAIPtXQUABVfqi7/Ot8XK1Z1+nQmxH2iIzQ4d7DT8/Vk4/ExvKnuNDm9IbF6A1pzAscH21OOVdhApUqRIda7fZu+rVoYp/DwAAAAASUVORK5CYII=" style="margin-left:auto; margin-right:auto; display:flex;">
+                    <h5 style="font-weight: 700; font-size: 12px;">
+                        Checked Upon Receipt
+                    </h5>
+                </div>
+                <div style="width: 120px; text-align: center; ">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABmJLR0QA/wD/AP+gvaeTAAADSklEQVRYhe2YTU8TQRjH/7NLW6C0BUoBgQKRSJFE9GA8VCLRhJuJnPDqhzAG+QCGpJ/DmEBijCeDiYqIGIkXFEEM0gIthVKk7y3b3fFQdrsL21Loy3rgd5qZPLP7y7Ozs88scEFxkOMDzxY/DxFCh0Fgq6gJRYBQTI8N3P4oH1YITnz/5KIgjysqdgLienrN+UTqiY2jzH3QRkoJoRgSM8lIg4QO55tkYFjcamortxsAQAAklypplMAGqj7BwLB42N2PMHdYdjkAIAyaxTaTLxDIyrXVmsprlYO8glrLAXkE/wc5QL4GZRgYFqMqcn0WK8YszoIvzlOKeJpDmEvBEwthNRyEPxErXnCk04H2EmSOJQQmnR4mnR7ttSY4bR3wxEJ47/fAn4gWdA3VRzyzs4Ekny5aUI0uowWPegYw2GwvKF41g/5EFFOeZYx298PAsNK4Lx7B16CvYBmGEBhZPS7V1OGyqR7VbPZ2g8121On0eONdO7sgAHjjEUy6fyokw9whVkLBggXl6BgGN61tcNo6oGMyD+5GQwsOUkl82fPmnJd3mxElUwJ/Lik5nCBgPrCF5+s/EE1nN/yh1i601hjPJyhKvlhfKtma9CeimHIvgxMEAJli4F5r9/kFxYtOepaREkojuZOMYT6wJfU7jRa0VKtnsSBBIPOCvNt2F293xELQhxSfXTq95kbVuIIFAZRkLYpwgoC16F+p31VXrxp3JsFSI9+szTq9aoymgrE0J7WNVTrVGE0F5Rt3kldfPpoKNuirpXYsrV4MayrYY2qQ2ts5igfNBHvNjYoMrob3VeM0ETSwLO7Kvh4hLgV3NKQaW3FBHcPggd2hyN7szgZ4KqjG56xmykGToRb3O64oioM/0QMsHQRyzimrIEsIjFWZetBhseKq2QpCsj8zgqkEXm+u5jrt5hfss1gxYneU0leBNx7By42VU6ukij5iIPMNXgj6MLe7CZ7my12GignupeL4Hd7Ht6BfUbCeRt6S/9Xmr6KkeEoR4zLHzrNIyckKUihepUgR549ioQJ2xba0D1JK3mpicxIKSqfFjiQ4PuCcAYhLG6cshMI1fn1wVuofD5hYnLsjAMPyX2CVgArYBaXTcrkLSsE/s+spUFfEk7MAAAAASUVORK5CYII=" style="margin-left:auto; margin-right:auto; display:flex;">
+                    <h5 style="font-weight: 700; font-size: 12px;">
+                        Exchange in
+                        30 days
+                    </h5>
+                </div>
+
+            </div>
+
+            <p>________________________________________________________________</p>
+            @*<br />
+                <select class="form-select" aria-label="Default select example" style="padding:8px;">
+                    <option selected>Choose a payment method</option>
+                    <option value="E-Wallet">E-Wallet (Momo)</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Credit Card">Credit Card</option>
+                </select>*@
+            <br />
+            <br />
+            <button class="btn btn-primary my-2 mt-3" type="submit" style="text-decoration:none;">
+                Add To Order
+            </button>
+            @if (@CheckExist((int)Session["ID"]) == true)
+            {
+                <div class="btn btn-primary my-2 mt-3" style="text-decoration:none; color:white; background-color:aliceblue;">
+
+                    @Html.ActionLink("View Order", "OrderDetail", "Order", new { htmlAttributes = new { @style = "color:white;" } }, null)
+                </div>
+            }
+
+        </div>
+
+    </div>
+}
+<style>
+    .checked {
+        color: orange;
+    }
+
+    .info_detail {
+        font-family: 'Roboto', sans-serif;
+    }
+</style>
+

@@ -1,0 +1,210 @@
+﻿@model IEnumerable<WebMVCTesting.Models.TestingProduct>
+@{
+    ViewBag.Title = "Product";
+}
+
+
+
+
+<div style="display:grid;grid-template-columns:35% 65%">
+    <div style="background-color:peru;">
+        <div class="layout_padding-top">
+            <section class="discount_section ">
+
+                <div class="col-lg-3 col-md-5 offset-md-2">
+
+
+                </div>
+                <div class="col-lg-7 col-md-5" style="margin-top:50px; width:300px; text-align:right;">
+                    <div class="detail-box">
+                        <h2 style="font-size:50px;">
+                            <strong>
+                                You get <br>
+                                any medicine <br>
+                                on
+                                <span>
+                                    10% discount
+                                </span>
+                            </strong>
+                        </h2>
+                        <p style="font-size:18px;">
+                            It is a long established fact that a reader will be distracted by
+                        </p>
+                        <div>
+                            <a href="#" style="background-color: #ffff; padding: 10px; color: peru; font-size: 22px; border-radius:2px; ">
+                                <strong>Buy Now</strong>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active" style="height:560px; max-height:600px;">
+                <img src="https://fmpha.org/wp-content/uploads/2020/04/2019_12_LaurenC19-1024x684.jpg" alt="Functional Medicine ​ Pharmacists Alliance" style="height:560px;">
+            </div>
+
+
+            <div class="item" style="height:560px; max-height:600px;">
+                <img src="https://iconsiam-aws-s3-prod.s3.ap-southeast-1.amazonaws.com/assets/JW8WNGDK49FAF_06.jpg" alt="Chicago" height="700" width="1140">
+            </div>
+
+            <div class="item" style="height:560px; max-height:600px;">
+                <img src="https://www.lsretail.com/hubfs/CS_lab-pharmacy.jpg" alt="New York" style="height:560px;">
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+</div>
+
+
+<div style="display:flex; margin-inline-start:20px;">
+    <h2><i class="fa-solid fa-tablets"></i> VITAMINS & SUPPLEMENTS</h2>
+</div>
+<div class="container" style="margin-inline-start:30px;">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 d-flex justify-content-center">
+                <div class="card">
+
+                    <div class="card-body text-center" style="background-color: #F2E5E5; ">
+                        <div class="card-img py-2">
+                            <img src="@Html.DisplayFor(modelItem => item.proImg)"
+                                 alt="">
+                        </div>
+                        <div class="name h5">@Html.DisplayFor(modelItem => item.proName)</div>
+                        <div class="price">$@Html.DisplayFor(modelItem => item.priceDeli)</div>
+                        <div class="description" style="text-align:justify; margin-left:5px;">
+                            @Html.DisplayFor(modelItem => item.proDesc)
+                        </div>
+
+                        <div class="btn btn-primary my-2 mt-3" style="text-decoration:none;">@Html.ActionLink("View Details", "Details", "Products", new { id = item.proID }, null)</div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+    
+</div>
+
+
+
+<style>
+    .container {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .logout_text {
+        margin-right: 50px;
+    }
+
+
+
+    .container .row .card {
+        min-width: 300px;
+        max-width: 350px;
+        height: 360px;
+        margin: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+        backdrop-filter: blur(5px);
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        border-left: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 15px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    input[type="checkbox"] {
+        position: absolute;
+        width: 20px;
+        opacity: 0;
+        z-index: 200;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+
+    .fas.fa-heart {
+        position: absolute;
+        cursor: pointer;
+        right: 10px;
+        top: 10px;
+        font-size: 1.3rem;
+        color: #ffffff80;
+    }
+
+    .container .row .card .card-body {
+        padding: 1.8rem 1.8rem;
+        color: #464847;
+        background-color: #F2E5E5;
+    }
+
+
+
+    input[type="checkbox"]:checked + .fas.fa-heart {
+        will-change: font-size;
+        color: #e2264d;
+        animation: heart 1s cubic-bezier(.17, .89, .32, 1.49);
+    }
+
+    .container .row .card .card-body .card-img img {
+        width: 80px;
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .container .row .card .card-body .name {
+        margin-top: 10px;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    .container .row .card .card-body .price {
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: #6ECCAF;
+    }
+
+    .container .row .card .card-body .btn.btn-primary {
+        background: #f2c093;
+        border: none;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+        .container .row .card .card-body .btn.btn-primary:hover {
+            background: #DBA39A;
+        }
+
+    .card {
+        margin: 0;
+    }
+</style>

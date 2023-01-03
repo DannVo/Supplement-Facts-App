@@ -1,0 +1,82 @@
+﻿@model WebMVCTesting.Models.TestingProduct
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TestingProduct</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.proName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proImg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proImg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.priceDeli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.priceDeli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.priceReceived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.priceReceived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateReceive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateReceive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateDeli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateDeli)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.proID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

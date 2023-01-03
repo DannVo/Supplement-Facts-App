@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TestingOrder">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orderName" Type="nvarchar" MaxLength="50" />
+    <Property Name="statusText" Type="nvarchar" MaxLength="50" />
+    <Property Name="status" Type="int" />
+    <Property Name="payMethod" Type="nvarchar" MaxLength="50" />
+    <Property Name="totalPay" Type="float" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="cusName" Type="nvarchar" MaxLength="50" />
+    <Property Name="address" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'WebDB.dbo.TestingOrderDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TestingOrderDetail">
+    <Key>
+      <PropertyRef Name="orderID" />
+      <PropertyRef Name="proID" />
+    </Key>
+    <Property Name="orderID" Type="int" Nullable="false" />
+    <Property Name="proID" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="totalPrice" Type="float" />
+  </EntityType>
+  <EntityType Name="TestingTempOrder">
+    <Key>
+      <PropertyRef Name="tempID" />
+    </Key>
+    <Property Name="tempID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cusID" Type="int" />
+    <Property Name="proID" Type="int" />
+    <Property Name="quantity" Type="int" />
+  </EntityType>
+  <Association Name="FK_Detail_Order">
+    <End Role="TestingOrder" Type="Self.TestingOrder" Multiplicity="1" />
+    <End Role="TestingOrderDetail" Type="Self.TestingOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestingOrder">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="TestingOrderDetail">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WebDBModel1StoreContainer">
+    <EntitySet Name="TestingOrder" EntityType="Self.TestingOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestingTempOrder" EntityType="Self.TestingTempOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestingOrderDetail" EntityType="Self.TestingOrderDetail" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TestingOrderDetail].[orderID] AS [orderID], 
+    [TestingOrderDetail].[proID] AS [proID], 
+    [TestingOrderDetail].[quantity] AS [quantity], 
+    [TestingOrderDetail].[totalPrice] AS [totalPrice]
+    FROM [dbo].[TestingOrderDetail] AS [TestingOrderDetail]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Detail_Order" Association="Self.FK_Detail_Order">
+      <End Role="TestingOrder" EntitySet="TestingOrder" />
+      <End Role="TestingOrderDetail" EntitySet="TestingOrderDetail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TestingProduct">
+    <Key>
+      <PropertyRef Name="proID" />
+    </Key>
+    <Property Name="proID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="proName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="proImg" Type="nvarchar" MaxLength="250" />
+    <Property Name="proDesc" Type="nvarchar(max)" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="priceDeli" Type="float" Nullable="false" />
+    <Property Name="priceReceived" Type="float" Nullable="false" />
+    <Property Name="dateReceive" Type="datetime" />
+    <Property Name="dateDeli" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TestingUser">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fullname" Type="nvarchar" MaxLength="50" />
+    <Property Name="address" Type="nvarchar" MaxLength="250" />
+    <Property Name="phone" Type="nvarchar" MaxLength="13" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityContainer Name="WebDBModelStoreContainer">
+    <EntitySet Name="TestingProduct" EntityType="Self.TestingProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestingUser" EntityType="Self.TestingUser" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

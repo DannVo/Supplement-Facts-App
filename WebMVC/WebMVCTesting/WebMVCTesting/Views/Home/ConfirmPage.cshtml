@@ -1,0 +1,25 @@
+﻿@model WebMVCTesting.Models.AllOrder.TestingOrderDetail
+@{
+    ViewBag.Title = "ConfirmPage";
+}
+
+<h2 style="color:tomato;">Your order has been sent</h2>
+@using (Html.BeginForm("Confirm", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.EditorFor(model => model.orderID, new { htmlAttributes = new { @Value = @Session["OrderID"], @class = "form-control hide" } })
+    @Html.ValidationMessageFor(model => model.orderID, "", new { @class = "text-danger" })
+
+    @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @Value = @Session["QuanBuy"], @class = "form-control hide" } })
+    @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+
+    @Html.EditorFor(model => model.proID, new { htmlAttributes = new { @Value = @Session["ProID"], @class = "form-control hide" } })
+    @Html.ValidationMessageFor(model => model.proID, "", new { @class = "text-danger" })
+
+    <button class="btn btn-primary my-2 mt-3" type="submit" style="text-decoration:none;">
+        Confirm
+    </button>
+}
+
+

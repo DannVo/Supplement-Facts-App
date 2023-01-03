@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WebDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TestingOrder">
+          <Key>
+            <PropertyRef Name="orderID" />
+          </Key>
+          <Property Name="orderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderName" Type="nvarchar" MaxLength="50" />
+          <Property Name="statusText" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="int" />
+          <Property Name="payMethod" Type="nvarchar" MaxLength="50" />
+          <Property Name="totalPay" Type="float" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="cusName" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'WebDB.dbo.TestingOrderDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TestingOrderDetail">
+          <Key>
+            <PropertyRef Name="orderID" />
+            <PropertyRef Name="proID" />
+          </Key>
+          <Property Name="orderID" Type="int" Nullable="false" />
+          <Property Name="proID" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="totalPrice" Type="float" />
+        </EntityType>
+        <EntityType Name="TestingTempOrder">
+          <Key>
+            <PropertyRef Name="tempID" />
+          </Key>
+          <Property Name="tempID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cusID" Type="int" />
+          <Property Name="proID" Type="int" />
+          <Property Name="quantity" Type="int" />
+        </EntityType>
+        <Association Name="FK_Detail_Order">
+          <End Role="TestingOrder" Type="Self.TestingOrder" Multiplicity="1" />
+          <End Role="TestingOrderDetail" Type="Self.TestingOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestingOrder">
+              <PropertyRef Name="orderID" />
+            </Principal>
+            <Dependent Role="TestingOrderDetail">
+              <PropertyRef Name="orderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WebDBModel1StoreContainer">
+          <EntitySet Name="TestingOrder" EntityType="Self.TestingOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestingTempOrder" EntityType="Self.TestingTempOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestingOrderDetail" EntityType="Self.TestingOrderDetail" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TestingOrderDetail].[orderID] AS [orderID], 
+    [TestingOrderDetail].[proID] AS [proID], 
+    [TestingOrderDetail].[quantity] AS [quantity], 
+    [TestingOrderDetail].[totalPrice] AS [totalPrice]
+    FROM [dbo].[TestingOrderDetail] AS [TestingOrderDetail]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Detail_Order" Association="Self.FK_Detail_Order">
+            <End Role="TestingOrder" EntitySet="TestingOrder" />
+            <End Role="TestingOrderDetail" EntitySet="TestingOrderDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TestingOrder">
+          <Key>
+            <PropertyRef Name="orderID" />
+          </Key>
+          <Property Name="orderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="statusText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="payMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="totalPay" Type="Double" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="cusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TestingOrderDetails" Relationship="Self.FK_Detail_Order" FromRole="TestingOrder" ToRole="TestingOrderDetail" />
+        </EntityType>
+        <EntityType Name="TestingTempOrder">
+          <Key>
+            <PropertyRef Name="tempID" />
+          </Key>
+          <Property Name="tempID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cusID" Type="Int32" />
+          <Property Name="proID" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TestingOrderDetail">
+          <Key>
+            <PropertyRef Name="orderID" />
+            <PropertyRef Name="proID" />
+          </Key>
+          <Property Name="orderID" Type="Int32" Nullable="false" />
+          <Property Name="proID" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="totalPrice" Type="Double" />
+          <NavigationProperty Name="TestingOrder" Relationship="Self.FK_Detail_Order" FromRole="TestingOrderDetail" ToRole="TestingOrder" />
+        </EntityType>
+        <Association Name="FK_Detail_Order">
+          <End Role="TestingOrder" Type="Self.TestingOrder" Multiplicity="1" />
+          <End Role="TestingOrderDetail" Type="Self.TestingOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestingOrder">
+              <PropertyRef Name="orderID" />
+            </Principal>
+            <Dependent Role="TestingOrderDetail">
+              <PropertyRef Name="orderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WebDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TestingOrders" EntityType="Self.TestingOrder" />
+          <EntitySet Name="TestingTempOrders" EntityType="Self.TestingTempOrder" />
+          <EntitySet Name="TestingOrderDetails" EntityType="Self.TestingOrderDetail" />
+          <AssociationSet Name="FK_Detail_Order" Association="Self.FK_Detail_Order">
+            <End Role="TestingOrder" EntitySet="TestingOrders" />
+            <End Role="TestingOrderDetail" EntitySet="TestingOrderDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WebDBModel1StoreContainer" CdmEntityContainer="WebDBEntities">
+          <EntitySetMapping Name="TestingOrders">
+            <EntityTypeMapping TypeName="WebDBModel1.TestingOrder">
+              <MappingFragment StoreEntitySet="TestingOrder">
+                <ScalarProperty Name="orderID" ColumnName="orderID" />
+                <ScalarProperty Name="orderName" ColumnName="orderName" />
+                <ScalarProperty Name="statusText" ColumnName="statusText" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="payMethod" ColumnName="payMethod" />
+                <ScalarProperty Name="totalPay" ColumnName="totalPay" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="cusName" ColumnName="cusName" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestingTempOrders">
+            <EntityTypeMapping TypeName="WebDBModel1.TestingTempOrder">
+              <MappingFragment StoreEntitySet="TestingTempOrder">
+                <ScalarProperty Name="tempID" ColumnName="tempID" />
+                <ScalarProperty Name="cusID" ColumnName="cusID" />
+                <ScalarProperty Name="proID" ColumnName="proID" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestingOrderDetails">
+            <EntityTypeMapping TypeName="WebDBModel1.TestingOrderDetail">
+              <MappingFragment StoreEntitySet="TestingOrderDetail">
+                <ScalarProperty Name="orderID" ColumnName="orderID" />
+                <ScalarProperty Name="proID" ColumnName="proID" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

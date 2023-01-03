@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebDBModelStoreContainer" CdmEntityContainer="WebDBConn">
+    <EntitySetMapping Name="TestingProducts">
+      <EntityTypeMapping TypeName="WebDBModel.TestingProduct">
+        <MappingFragment StoreEntitySet="TestingProduct">
+          <ScalarProperty Name="proID" ColumnName="proID" />
+          <ScalarProperty Name="proName" ColumnName="proName" />
+          <ScalarProperty Name="proImg" ColumnName="proImg" />
+          <ScalarProperty Name="proDesc" ColumnName="proDesc" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="priceDeli" ColumnName="priceDeli" />
+          <ScalarProperty Name="priceReceived" ColumnName="priceReceived" />
+          <ScalarProperty Name="dateReceive" ColumnName="dateReceive" />
+          <ScalarProperty Name="dateDeli" ColumnName="dateDeli" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestingUsers">
+      <EntityTypeMapping TypeName="WebDBModel.TestingUser">
+        <MappingFragment StoreEntitySet="TestingUser">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

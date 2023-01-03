@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TestingProduct">
+    <Key>
+      <PropertyRef Name="proID" />
+    </Key>
+    <Property Name="proID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="proName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="proImg" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="proDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="priceDeli" Type="Double" Nullable="false" />
+    <Property Name="priceReceived" Type="Double" Nullable="false" />
+    <Property Name="dateReceive" Type="DateTime" Precision="3" />
+    <Property Name="dateDeli" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TestingUser">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="WebDBConn" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TestingProducts" EntityType="Self.TestingProduct" />
+    <EntitySet Name="TestingUsers" EntityType="Self.TestingUser" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebDBModel1StoreContainer" CdmEntityContainer="WebDBEntities">
+    <EntitySetMapping Name="TestingOrders">
+      <EntityTypeMapping TypeName="WebDBModel1.TestingOrder">
+        <MappingFragment StoreEntitySet="TestingOrder">
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="orderName" ColumnName="orderName" />
+          <ScalarProperty Name="statusText" ColumnName="statusText" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="payMethod" ColumnName="payMethod" />
+          <ScalarProperty Name="totalPay" ColumnName="totalPay" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="cusName" ColumnName="cusName" />
+          <ScalarProperty Name="address" ColumnName="address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestingTempOrders">
+      <EntityTypeMapping TypeName="WebDBModel1.TestingTempOrder">
+        <MappingFragment StoreEntitySet="TestingTempOrder">
+          <ScalarProperty Name="tempID" ColumnName="tempID" />
+          <ScalarProperty Name="cusID" ColumnName="cusID" />
+          <ScalarProperty Name="proID" ColumnName="proID" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestingOrderDetails">
+      <EntityTypeMapping TypeName="WebDBModel1.TestingOrderDetail">
+        <MappingFragment StoreEntitySet="TestingOrderDetail">
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="proID" ColumnName="proID" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

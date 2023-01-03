@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container" style="margin-left:15px;">
+            <div class="navbar-header" style="margin-left:15px; padding-left:10px;">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("HealthCare+", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="" style="display:flex; justify-content:space-between;">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (Session["ID"] != null)
+                    {
+                        <li>@Html.ActionLink("Product", "Product", "Home")</li>
+                        <li>@Html.ActionLink("View Order", "OrderDetail", "Order", new { htmlAttributes = new { @style = "color:white;" } }, null)</li>
+
+
+                    }
+
+
+
+
+                </ul>
+                @if (Session["ID"] != null)
+                {
+                    <ul class="nav navbar-nav">
+                        <li class="logout_icon" style="top:25%;"><button style="background-color:transparent; border:none; padding:0;"><i class="fa-solid fa-circle-user" style="font-size:26px; color:whitesmoke;"></i></button></li>
+                        <li class="logout_text">@Html.ActionLink("Logout", "Logout", "Home")</li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav">
+                        
+                        <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                    </ul>
+                    
+
+                }
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - HealthCare+ Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<WebMVCTesting.Models.TestingProduct>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.proName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proImg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proDesc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priceDeli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priceReceived)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateReceive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateDeli)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.proName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proImg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proDesc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.priceDeli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.priceReceived)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateReceive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateDeli)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.proID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.proID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.proID })
+        </td>
+    </tr>
+}
+
+</table>
